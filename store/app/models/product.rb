@@ -9,4 +9,13 @@ class Product < ActiveRecord::Base
       end
     end
   end
+
+  def self.import(file)
+    accessible_attributes = ['name','price', 'released_on']
+    CSV.foreach(file.path, headers:true ) do |row|
+      product = find_by_id(row["id"]) || new
+      product.attributes = row.to_hash.slice(*accessible_attributes)
+      product.save!
+    end
+  end
 end
