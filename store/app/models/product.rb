@@ -1,6 +1,10 @@
 class Product < ActiveRecord::Base
   #attr_accessible :name, :price, :released_on
 
+  def self.accessible_attributes
+    ['name','price', 'released_on']
+  end
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names
@@ -11,13 +15,13 @@ class Product < ActiveRecord::Base
   end
 
 def self.import(file)
-  accessible_attributes = ['name','price', 'released_on']
+  #accessible_attributes =
   spreadsheet = open_spreadsheet(file)
   header = spreadsheet.row(1)
   (2..spreadsheet.last_row).each do |i|
     row = Hash[[header, spreadsheet.row(i)].transpose]
     product = find_by_id(row["id"]) || new
-    product.attributes = row.to_hash.slice(*accessible_attributes)
+    product.attributes = row.to_hash.slice(*avail_attributes)
     product.save!
   end
 end
