@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
   #attr_accessible :name, :price, :released_on
 
+  validates_presence_of :price
+
   def self.accessible_attributes
     ['name','price', 'released_on']
   end

@@ -1,6 +1,6 @@
 class ProductImport
   # switch to ActiveModel::Model in Rails 4
-  extend ActiveModel::Naming
+  extend ActiveModel::Model
   include ActiveModel::Conversion
   include ActiveModel::Validations
 

@@ -1,2 +1,3 @@
-/tmp
+tmp/cache/
 /db/*.sqlite3
+/log
